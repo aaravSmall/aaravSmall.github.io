@@ -18,12 +18,19 @@ export const profile = {
   resume: "/resume.pdf",
 };
 
-// The About section. To add your photo, put it at public/me.jpg (a portrait,
-// roughly 4:5, at least 800px wide). Until that file exists the page shows a
-// placeholder frame instead.
+// The About section.
+// Photos: drop image files into public/about/ and list them below, in the order
+// they should play. Portraits (roughly 4:5, at least 800px wide) fit the frame
+// best; anything else is cropped to fill it. Entries whose file doesn't exist
+// yet are skipped, and with no photos at all the frame shows a placeholder.
+export type Photo = { src: string; alt: string; caption?: string };
+
 export const about = {
-  photo: "/me.jpg",
-  photoAlt: "Aarav Samal",
+  photos: [
+    { src: "/about/1.jpg", alt: "Aarav Samal", caption: "" },
+    { src: "/about/2.jpg", alt: "Aarav Samal", caption: "" },
+    { src: "/about/3.jpg", alt: "Aarav Samal", caption: "" },
+  ] as Photo[],
   paragraphs: [
     "I'm a Computer and Information Technology student in Purdue's John Martinson Honors College, with a minor in Communications. The pairing fits how I like to work: understand the people and the problem first, then build the thing that actually helps.",
     "This summer I was an AI Engineer Intern at Bristol Myers Squibb, embedded with drug-discovery scientists and shipping features on a full-stack Claude Agent SDK platform. Before that I built mobile and web apps for clinics at Niramai Thermalytix.",

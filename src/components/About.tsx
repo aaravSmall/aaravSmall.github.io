@@ -1,19 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { about, profile } from "@/data/profile";
 import { outside } from "@/data/leadership";
+import { PhotoCarousel } from "@/components/PhotoCarousel";
 
-// Runs at build time: show the photo once public/me.jpg exists, a placeholder until then.
-const hasPhoto = existsSync(join(process.cwd(), "public", about.photo));
+// Runs at build time: only photos whose files exist in public/ make it into the carousel.
+const photos = about.photos.filter((p) => existsSync(join(process.cwd(), "public", p.src)));
 
 export function About() {
   return (
     <section className="section section-raised" id="about" aria-labelledby="about-h">
       <div className="wrap about">
         <figure className="about-photo">
-          {hasPhoto ? (
-            <img src={about.photo} alt={about.photoAlt} width={800} height={1000} />
+          {photos.length > 0 ? (
+            <PhotoCarousel photos={photos} />
           ) : (
             <div className="about-placeholder" role="img" aria-label="Photo coming soon">
               <span>
