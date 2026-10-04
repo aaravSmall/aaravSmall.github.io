@@ -18,6 +18,24 @@ export const profile = {
   resume: "/resume.pdf",
 };
 
+// The About section. To add your photo, put it at public/me.jpg (a portrait,
+// roughly 4:5, at least 800px wide). Until that file exists the page shows a
+// placeholder frame instead.
+export const about = {
+  photo: "/me.jpg",
+  photoAlt: "Aarav Samal",
+  paragraphs: [
+    "I'm a Computer and Information Technology student in Purdue's John Martinson Honors College, with a minor in Communications. The pairing fits how I like to work: understand the people and the problem first, then build the thing that actually helps.",
+    "This summer I was an AI Engineer Intern at Bristol Myers Squibb, embedded with drug-discovery scientists and shipping features on a full-stack Claude Agent SDK platform. Before that I built mobile and web apps for clinics at Niramai Thermalytix.",
+  ],
+  facts: [
+    { label: "Studying", value: "B.S. CIT, Purdue Honors, class of 2027" },
+    { label: "Focus", value: "AI engineering, forward deployed, full-stack" },
+    { label: "Building", value: "mitbo.ai, an AI bouldering coach" },
+    { label: "Also", value: "F1 @ Purdue, honors mentor" },
+  ],
+};
+
 export const skills: { group: string; items: string[] }[] = [
   {
     group: "AI & agents",

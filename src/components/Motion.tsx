@@ -10,12 +10,17 @@ import { useEffect } from "react";
 // up/left/right/scale/pop/wipe: the element itself moves in.
 // words/chars: the text is split and rises in piece by piece.
 // none: the element stays put but its lines/decoration draw in (CSS keys off `.in`).
-type Variant = "up" | "left" | "right" | "scale" | "pop" | "wipe" | "words" | "chars" | "none";
+type Variant = "up" | "left" | "right" | "scale" | "pop" | "wipe" | "photo" | "words" | "chars" | "none";
 
 // [selector, variant, stagger siblings?]
 const TARGETS: [string, Variant, boolean?][] = [
   [".section", "none"],
   [".section .h2", "wipe"],
+
+  // About
+  [".about-photo", "photo"],
+  [".about-p", "up", true],
+  [".about-facts > div", "left", true],
 
   // Experience
   [".tl-row", "none"],
@@ -62,7 +67,7 @@ const TARGETS: [string, Variant, boolean?][] = [
 ];
 
 // Elements whose position in the viewport drives a continuous effect (--p, 0 to 1).
-const SCRUB = ".section, .section .h2, .feature-art";
+const SCRUB = ".section, .section .h2, .feature-art, .about-photo";
 
 function splitText(el: HTMLElement, mode: "words" | "chars") {
   if (el.dataset.split || el.children.length > 0) return;

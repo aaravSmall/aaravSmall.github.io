@@ -1,7 +1,8 @@
 import { profile, skills } from "@/data/profile";
+import { About } from "@/components/About";
 import { experience } from "@/data/experience";
 import { projects } from "@/data/projects";
-import { leadership, outside } from "@/data/leadership";
+import { leadership } from "@/data/leadership";
 import { Music } from "@/components/Music";
 import { Livery } from "@/components/Livery";
 import { PoseSketch } from "@/components/PoseSketch";
@@ -24,6 +25,7 @@ export default function Home() {
             AS
           </a>
           <nav aria-label="Sections">
+            <a href="#about">About</a>
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#leadership">Leadership</a>
@@ -65,6 +67,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <About />
 
         <section className="section" id="experience" aria-labelledby="exp-h">
           <div className="wrap">
@@ -204,7 +208,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <p className="outside">{outside}</p>
           </div>
         </section>
 
