@@ -11,7 +11,7 @@ export async function Music() {
 
   const [artistArt, songArt] = await Promise.all([
     Promise.all(artists.map((a) => artistCover(a))),
-    Promise.all(songs.map((s) => songCover(s.title, s.artist))),
+    Promise.all(songs.map((s) => (s.cover ? Promise.resolve(s.cover) : songCover(s.title, s.artist, s.album)))),
   ]);
 
   return (

@@ -63,9 +63,15 @@ function pickSong(results: ItunesResult[], title: string, artist: string) {
   return byArtist.find((r) => r.trackName && norm(r.trackName).startsWith(norm(title))) ?? byArtist[0];
 }
 
-export async function songCover(title: string, artist: string): Promise<string | null> {
-  let hit = pickSong(await search(`${title} ${artist.split("/")[0]}`, "song"), title, artist);
+export async function songCover(title: string, artist: string, album?: string): Promise<string | null> {
+  let hit: ItunesResult | undefined = pickSong(await search(`${title} ${artist.split("/")[0]}`, "song"), title, artist);
   if (!hit) hit = pickSong(await search(title, "song"), title, artist);
+  if (!hit && album) {
+    const albums = await search(`${album} ${artist.split("/")[0]}`, "album");
+    hit = albums.find(
+      (r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName) && r.collectionName && norm(r.collectionName).includes(norm(album)),
+    );
+  }
   if (!hit) {
     console.warn(`[artwork] no cover found for "${title}" by ${artist}`);
     return null;
