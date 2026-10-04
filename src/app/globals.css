@@ -657,6 +657,17 @@ a {
   font-weight: 600;
   font-size: 1.05rem;
 }
+.music-link {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+.music-link:hover {
+  color: var(--yellow);
+  text-decoration-color: var(--red);
+}
 .music-artist {
   color: var(--silver);
   font-size: 0.92rem;

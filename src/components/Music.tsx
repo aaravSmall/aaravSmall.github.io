@@ -1,16 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { spotify, topArtists, topSongs } from "@/data/music";
+import type { ReactNode } from "react";
+import { spotify, spotifySearch, topArtists, topSongs, type Artist } from "@/data/music";
 import { artistCover, songCover } from "@/lib/artwork";
 
 const sortKey = (s: string) => s.toLowerCase();
 const byText = (a: string, b: string) => sortKey(a).localeCompare(sortKey(b), "en", { numeric: true });
 
 export async function Music() {
-  const artists = [...topArtists].sort(byText);
+  const artists = [...topArtists].sort((a, b) => byText(a.name, b.name));
   const songs = [...topSongs].sort((a, b) => byText(a.artist, b.artist) || byText(a.title, b.title));
 
   const [artistArt, songArt] = await Promise.all([
-    Promise.all(artists.map((a) => artistCover(a))),
+    Promise.all(artists.map((a) => artistCover(a.name))),
     Promise.all(songs.map((s) => (s.cover ? Promise.resolve(s.cover) : songCover(s.title, s.artist, s.album)))),
   ]);
 
@@ -25,10 +26,12 @@ export async function Music() {
             <h3 className="music-label">Top artists</h3>
             <ol className="music-list">
               {artists.map((a, i) => (
-                <li key={a}>
-                  <Cover src={artistArt[i]} label={a} round />
+                <li key={a.name}>
+                  <Cover src={artistArt[i]} label={a.name} round />
                   <span className="music-text">
-                    <span className="music-title">{a}</span>
+                    <span className="music-title">
+                      <ArtistLinks artist={a} />
+                    </span>
                   </span>
                 </li>
               ))}
@@ -41,7 +44,11 @@ export async function Music() {
                 <li key={s.title + s.artist}>
                   <Cover src={songArt[i]} label={s.title} />
                   <span className="music-text">
-                    <span className="music-title">{s.title}</span>
+                    <span className="music-title">
+                      <SpotifyLink href={s.spotify ?? spotifySearch(`${s.title} ${s.artist}`)} label={`${s.title} by ${s.artist}`}>
+                        {s.title}
+                      </SpotifyLink>
+                    </span>
                     <span className="music-artist">{s.artist}</span>
                   </span>
                 </li>
@@ -67,6 +74,28 @@ export async function Music() {
       </div>
     </section>
   );
+}
+
+function SpotifyLink({ href, label, children }: { href: string; label: string; children: ReactNode }) {
+  return (
+    <a className="music-link" href={href} target="_blank" rel="noopener" aria-label={`${label} on Spotify`}>
+      {children}
+    </a>
+  );
+}
+
+// "BoyWithUke / Chandol" becomes two links, one per name.
+function ArtistLinks({ artist }: { artist: Artist }) {
+  const names = artist.name.split(" / ");
+  const links = Array.isArray(artist.spotify) ? artist.spotify : [artist.spotify];
+  return names.map((name, i) => (
+    <span key={name}>
+      {i > 0 && " / "}
+      <SpotifyLink href={links[i] ?? spotifySearch(name)} label={name}>
+        {name}
+      </SpotifyLink>
+    </span>
+  ));
 }
 
 function Cover({ src, label, round }: { src: string | null; label: string; round?: boolean }) {
