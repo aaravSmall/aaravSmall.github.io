@@ -2,7 +2,7 @@ import { profile, skills } from "@/data/profile";
 import { experience } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { leadership, outside } from "@/data/leadership";
-import { spotify, topArtists, topSongs } from "@/data/music";
+import { Music } from "@/components/Music";
 import { Livery } from "@/components/Livery";
 import { PoseSketch } from "@/components/PoseSketch";
 
@@ -206,57 +206,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section" id="music" aria-labelledby="music-h">
-          <div className="wrap">
-            <h2 id="music-h" className="h2">
-              On rotation
-            </h2>
-            {(topArtists.length > 0 || topSongs.length > 0) && (
-              <div className="music">
-                {topArtists.length > 0 && (
-                  <div className="music-col">
-                    <h3 className="music-label">Top artists</h3>
-                    <ol className="music-list">
-                      {topArtists.map((a) => (
-                        <li key={a}>
-                          <span className="music-title">{a}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                )}
-                {topSongs.length > 0 && (
-                  <div className="music-col">
-                    <h3 className="music-label">Top songs</h3>
-                    <ol className="music-list">
-                      {topSongs.map((s) => (
-                        <li key={s.title + s.artist}>
-                          <span className="music-title">{s.title}</span>
-                          <span className="music-artist">{s.artist}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                )}
-              </div>
-            )}
-            <a className="spotify" href={spotify.url} target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22">
-                <circle cx="12" cy="12" r="11" fill="currentColor" />
-                <path
-                  d="M6.5 9.2c3.6-1.1 8-.8 11 1M7.2 12.4c3-.8 6.6-.5 9.2 1M7.9 15.4c2.4-.6 5-.4 7.1.8"
-                  stroke="var(--navy)"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-              <span>
-                Follow <strong>{spotify.username}</strong> on Spotify
-              </span>
-            </a>
-          </div>
-        </section>
+        <Music />
 
         <section className="section contact" id="contact" aria-labelledby="contact-h">
           <div className="wrap">

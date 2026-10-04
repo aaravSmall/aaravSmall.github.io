@@ -579,28 +579,49 @@ a {
 .music-list li {
   counter-increment: track;
   display: grid;
-  grid-template-columns: 2.25rem 1fr;
-  column-gap: 0.75rem;
-  align-items: baseline;
-  padding: 0.85rem 0;
+  grid-template-columns: 2rem 3.5rem 1fr;
+  column-gap: 0.9rem;
+  align-items: center;
+  padding: 0.7rem 0;
   border-bottom: 1px solid var(--navy-line);
 }
 .music-list li::before {
   content: counter(track, decimal-leading-zero);
-  grid-row: span 2;
   font-family: var(--display);
   font-weight: 900;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--red);
+}
+.music-cover {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  background: var(--navy-raised);
+  border: 1px solid var(--navy-line);
+}
+.music-cover-round {
+  border-radius: 50%;
+}
+.music-cover-empty {
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: var(--silver);
+}
+.music-text {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
 }
 .music-title {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 .music-artist {
-  grid-column: 2;
   color: var(--silver);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 .spotify {
   display: inline-flex;
