@@ -142,13 +142,18 @@ export function problem(s: State, moved?: Limb): string | null {
   return null;
 }
 
+// Can this limb move to this hold? The other three limbs stay on while the body
+// shifts toward the new hold (standing up, leaning in), so the test is whether
+// the position after the move can be held. Both the drag-and-drop and the
+// solver use this, so mitbo never suggests a move the player can't make.
+export const canMove = (s: State, limb: Limb, hold: number): string | null => problem({ ...s, [limb]: hold }, limb);
+
 export function moves(s: State): [Limb, number, State][] {
   const out: [Limb, number, State][] = [];
   for (const l of LIMBS) {
     for (let h = 0; h < HOLDS.length; h++) {
       if (h === s[l]) continue;
-      const next = { ...s, [l]: h };
-      if (!problem(next, l)) out.push([l, h, next]);
+      if (!canMove(s, l, h)) out.push([l, h, { ...s, [l]: h }]);
     }
   }
   return out;

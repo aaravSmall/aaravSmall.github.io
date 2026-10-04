@@ -10,13 +10,13 @@ import {
   START,
   W,
   bodyFor,
+  canMove,
   cue,
   dist,
   isHand,
   isTop,
   joint,
   pointsOf,
-  problem,
   reachOf,
   solve,
   type Hold,
@@ -51,9 +51,11 @@ export function ClimbDemo() {
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
   const pts = pointsOf(state);
-  const body = bodyFor(pts); // the body only moves once a move is committed
   const live: Record<Limb, Pt> = { ...pts };
   if (override) live[override.limb] = override.pt;
+  // The body follows the limb being moved, the way a climber stands up or leans
+  // in to reach, while the other three stay on their holds.
+  const body = bodyFor(live);
 
   const animate = useCallback((limb: Limb, from: Pt, to: Pt, done: () => void) => {
     cancelAnimationFrame(raf.current);
@@ -108,11 +110,16 @@ export function ClimbDemo() {
   };
 
   // Keep the dragged hand or foot within a real reach of its shoulder or hip.
+  // The shoulder or hip moves with the limb, so settle it over a few passes.
   const clampReach = (limb: Limb, p: Pt): Pt => {
-    const a = body.anchor[limb];
-    const r = reachOf(limb) + 14;
-    const d = dist(a, p);
-    const q = d > r ? { x: a.x + ((p.x - a.x) / d) * r, y: a.y + ((p.y - a.y) / d) * r } : p;
+    const r = reachOf(limb) + SNAP;
+    let q = p;
+    for (let i = 0; i < 6; i++) {
+      const a = bodyFor({ ...pts, [limb]: q }).anchor[limb];
+      const d = dist(a, p);
+      if (d <= r) break;
+      q = { x: a.x + ((p.x - a.x) / d) * r, y: a.y + ((p.y - a.y) / d) * r };
+    }
     return { x: Math.max(6, Math.min(W - 6, q.x)), y: Math.max(6, Math.min(H - 6, q.y)) };
   };
 
@@ -152,7 +159,7 @@ export function ClimbDemo() {
       if (best === -1) setMsg("Missed. Let go right on top of a hold to grab it.");
       return animate(limb, at, home, () => {});
     }
-    const why = problem({ ...state, [limb]: best }, limb);
+    const why = canMove(state, limb, best);
     if (why) {
       setMsg(why);
       return animate(limb, at, home, () => {});
