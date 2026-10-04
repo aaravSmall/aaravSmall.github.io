@@ -28,24 +28,49 @@ const sameArtist = (a: string, b: string) => {
 
 const big = (url: string) => url.replace(/\/\d+x\d+bb\./, "/300x300bb.");
 
-async function search(term: string, entity: "song" | "album"): Promise<ItunesResult[]> {
-  const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=${entity}&limit=15&country=US`;
-  try {
-    const res = await fetch(url, { cache: "force-cache" });
-    if (!res.ok) return [];
-    const data = (await res.json()) as { results?: ItunesResult[] };
-    return data.results ?? [];
-  } catch {
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// iTunes rate-limits bursts (~20 requests a minute), so lookups run one at a
+// time with a short gap, and a throttled request is retried after a pause.
+let queue: Promise<unknown> = Promise.resolve();
+
+function search(term: string, entity: "song" | "album"): Promise<ItunesResult[]> {
+  const run = async (): Promise<ItunesResult[]> => {
+    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=${entity}&limit=25&country=US`;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      try {
+        const res = await fetch(url, { cache: "force-cache" });
+        if (res.ok) {
+          const data = (await res.json()) as { results?: ItunesResult[] };
+          await sleep(1500);
+          return data.results ?? [];
+        }
+        if (res.status !== 403 && res.status !== 429) return [];
+      } catch {
+        // network hiccup: fall through to retry
+      }
+      await sleep(15000 * (attempt + 1));
+    }
     return [];
-  }
+  };
+  const next = queue.then(run, run);
+  queue = next.catch(() => undefined);
+  return next;
+}
+
+function pickSong(results: ItunesResult[], title: string, artist: string) {
+  const byArtist = results.filter((r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName));
+  return byArtist.find((r) => r.trackName && norm(r.trackName).startsWith(norm(title))) ?? byArtist[0];
 }
 
 export async function songCover(title: string, artist: string): Promise<string | null> {
-  const results = await search(`${title} ${artist.split("/")[0]}`, "song");
-  const byArtist = results.filter((r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName));
-  const exact = byArtist.find((r) => r.trackName && norm(r.trackName).startsWith(norm(title)));
-  const hit = exact ?? byArtist[0];
-  return hit?.artworkUrl100 ? big(hit.artworkUrl100) : null;
+  let hit = pickSong(await search(`${title} ${artist.split("/")[0]}`, "song"), title, artist);
+  if (!hit) hit = pickSong(await search(title, "song"), title, artist);
+  if (!hit) {
+    console.warn(`[artwork] no cover found for "${title}" by ${artist}`);
+    return null;
+  }
+  return big(hit.artworkUrl100!);
 }
 
 export async function artistCover(artist: string): Promise<string | null> {
