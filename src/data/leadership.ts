@@ -32,7 +32,7 @@ export const outside =
 // Favorite kits in the jersey collection, shown under the paragraph above.
 export const jerseys = [
   { kit: "2006 Argentina away", name: "Messi 19" },
-  { kit: "2008 Bayern Munich away", name: "Ballack 13" },
+  { kit: "2004/05 Bayern Munich away", name: "Ballack 13" },
   { kit: "2024 Roma home", name: "Dybala 21" },
   { kit: "1994 Spurs home" },
 ];
