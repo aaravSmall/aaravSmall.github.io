@@ -36,11 +36,12 @@ export const about = {
     "This summer I was an AI Engineer Intern at Bristol Myers Squibb, embedded with drug-discovery scientists and shipping features on a full-stack Claude Agent SDK platform. Before that I built mobile and web apps for clinics at Niramai Thermalytix.",
   ],
   facts: [
-    { label: "Studying", value: "B.S. CIT, Purdue Honors, class of 2027" },
+    { label: "Studying", value: "B.S. CIT, Purdue Honors, Class of 2027" },
     { label: "Focus", value: "AI engineering, forward deployed, full-stack" },
     { label: "Building", value: "mitbo.ai, an AI bouldering coach" },
     { label: "Also", value: "F1 @ Purdue, honors mentor" },
-  ],
+    { label: "Rooting for", value: "Spurs, Odisha FC, the Buffalo Bills and Williams F1", wide: true },
+  ] as { label: string; value: string; wide?: boolean }[],
 };
 
 export const skills: { group: string; items: string[] }[] = [

@@ -36,7 +36,7 @@ export function About() {
           <p className="outside">{outside}</p>
           <dl className="about-facts">
             {about.facts.map((f) => (
-              <div key={f.label}>
+              <div key={f.label} className={f.wide ? "about-fact-wide" : undefined}>
                 <dt>{f.label}</dt>
                 <dd>{f.value}</dd>
               </div>

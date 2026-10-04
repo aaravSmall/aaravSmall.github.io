@@ -2,10 +2,11 @@ import { profile, skills } from "@/data/profile";
 import { About } from "@/components/About";
 import { experience } from "@/data/experience";
 import { projects } from "@/data/projects";
-import { leadership } from "@/data/leadership";
+import { leadership, leadershipBlurb } from "@/data/leadership";
 import { Music } from "@/components/Music";
 import { Livery } from "@/components/Livery";
-import { PoseSketch } from "@/components/PoseSketch";
+import { ClimbDemo } from "@/components/ClimbDemo";
+import { ProjectArt } from "@/components/ProjectArt";
 import { Motion } from "@/components/Motion";
 
 export default function Home() {
@@ -52,7 +53,7 @@ export default function Home() {
             </ul>
             <p className="hero-intro">{profile.intro}</p>
             <p className="hero-school">
-              {profile.school}, class of {profile.graduation.split(" ")[1]}
+              {profile.school}, Class of {profile.graduation.split(" ")[1]}
             </p>
             <div className="hero-actions">
               <a className="btn btn-red" href={profile.resume} target="_blank" rel="noopener">
@@ -135,16 +136,23 @@ export default function Home() {
                   </ul>
                   <ProjectLinks repo={p.repo} live={p.live} name={p.name} />
                 </div>
-                <div className="feature-art">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {p.image ? <img src={p.image} alt={`${p.name} screenshot`} /> : <PoseSketch />}
-                </div>
+                {p.name === "mitbo.ai" ? (
+                  <div className="feature-art feature-art-play">
+                    <ClimbDemo />
+                  </div>
+                ) : (
+                  <div className="feature-art">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    {p.image && <img src={p.image} alt={`${p.name} screenshot`} />}
+                  </div>
+                )}
               </article>
             ))}
 
             <div className="grid">
               {rest.map((p) => (
                 <article key={p.name} className="card">
+                  {p.art && <ProjectArt art={p.art} />}
                   <p className={`status status-${p.status.replace(" ", "-").toLowerCase()}`}>{p.status}</p>
                   <h3 className="h3">{p.name}</h3>
                   <p className="tagline">{p.tagline}</p>
@@ -197,6 +205,7 @@ export default function Home() {
             <h2 id="lead-h" className="h2">
               Leadership
             </h2>
+            <p className="section-blurb">{leadershipBlurb}</p>
             <div className="lead">
               {leadership.map((l) => (
                 <div key={l.title + l.org} className="lead-item">

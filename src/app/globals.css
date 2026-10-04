@@ -500,32 +500,70 @@ a {
   text-underline-offset: 4px;
 }
 
-/* mitbo sketch */
+/* mitbo climbing demo */
+.climb {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 26rem;
+  margin-inline: auto;
+}
+.feature-art .climb-wall {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
 .pose-wall {
   fill: #1b2d63;
 }
-.pose-hold {
-  fill: #31477f;
+.climb-bolts circle {
+  fill: #0e1a3d;
+  opacity: 0.6;
 }
-.pose-target {
+.climb-hold {
+  fill: #4a63a8;
+  stroke: #0e1a3d;
+  stroke-width: 1.5;
+}
+.climb-chip {
+  fill: #6d84c4;
+}
+.climb-top circle {
   fill: none;
+  stroke: var(--yellow);
+  stroke-width: 2;
+}
+.climb-top text {
+  fill: var(--yellow);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-anchor: middle;
+}
+.climb-target {
+  fill: rgb(255 204 0 / 0.12);
   stroke: var(--yellow);
   stroke-width: 2;
   stroke-dasharray: 4 4;
 }
-.pose-arrow {
-  fill: none;
-  stroke: var(--yellow);
-  stroke-width: 2;
-  stroke-dasharray: 3 5;
+.climb-reach {
+  fill: rgb(243 244 247 / 0.04);
+  stroke: rgb(243 244 247 / 0.25);
+  stroke-dasharray: 2 5;
+  pointer-events: none;
+}
+.climb-body {
+  pointer-events: none;
 }
 .pose-bone {
   stroke: var(--white);
   stroke-width: 3;
   stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
 }
 .pose-head {
-  fill: none;
+  fill: #1b2d63;
   stroke: var(--white);
   stroke-width: 3;
 }
@@ -534,14 +572,217 @@ a {
   stroke: var(--white);
   stroke-width: 1.5;
 }
-.pose-cue rect {
-  fill: var(--navy);
+.climb-grip {
+  cursor: grab;
+  touch-action: none;
 }
-.pose-cue text {
-  fill: var(--white);
+.climb-grip.is-drag {
+  cursor: grabbing;
+}
+.climb-hit {
+  fill: transparent;
+}
+.climb-end {
+  fill: var(--red);
+  stroke: var(--white);
+  stroke-width: 2;
+  transition: r 0.15s;
+}
+.climb-grip:hover .climb-end,
+.climb-grip.is-drag .climb-end {
+  r: 9;
+}
+.climb-grip.is-hint .climb-end {
+  fill: var(--yellow);
+  stroke: var(--navy);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .climb-target {
+    animation: climb-spin 6s linear infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .climb-grip.is-hint .climb-end {
+    animation: climb-pulse 1.1s ease-in-out infinite;
+  }
+}
+@keyframes climb-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes climb-pulse {
+  50% {
+    r: 10;
+  }
+}
+.climb-cue {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  min-height: 4.6em;
+  padding: 0.75rem 1rem;
+  background: var(--navy);
+  border-left: 3px solid var(--red);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+.climb-cue-tag {
+  flex: none;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--yellow);
+}
+.climb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.climb-btn {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--white);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+}
+.climb-btn.btn-line {
+  border-color: var(--navy-line);
+}
+.climb-btn.btn-line:hover {
+  border-color: var(--white);
+}
+
+/* Project card illustrations */
+.card-art {
+  width: 100%;
+  margin-bottom: 0.4rem;
+}
+.card-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+.art-bg {
+  fill: #1b2d63;
+}
+.art-grid {
+  stroke: var(--navy-line);
+  stroke-width: 1;
+}
+.art-muted {
+  fill: var(--navy-line);
+}
+.art-line,
+.art-trip,
+.art-wave {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.art-trip {
+  stroke-dasharray: 5 6;
+  stroke-width: 2;
+}
+.art-wave {
+  stroke: var(--yellow);
+  stroke-width: 2;
+}
+.art-fill {
+  fill: rgb(243 244 247 / 0.07);
+}
+.art-stop {
+  stroke: var(--red);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+.art-label,
+.art-keytext {
+  fill: var(--silver);
   font-family: var(--body);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 9px;
+  font-weight: 600;
+}
+.art-buy {
+  fill: #2bd576;
+}
+.art-sell {
+  fill: var(--red);
+}
+.art-dot {
+  fill: var(--yellow);
+}
+.art-window {
+  fill: var(--navy);
+  stroke: var(--navy-line);
+  stroke-width: 1.5;
+}
+.art-panel {
+  fill: rgb(243 244 247 / 0.1);
+  stroke: var(--yellow);
+  stroke-width: 1.5;
+}
+.art-text {
+  fill: var(--white);
+  opacity: 0.85;
+}
+.art-key {
+  fill: none;
+  stroke: var(--silver);
+  stroke-width: 1;
+}
+.art-pin {
+  fill: var(--red);
+  stroke: var(--white);
+  stroke-width: 1.5;
+}
+.art-photo {
+  fill: var(--white);
+}
+.art-photo-in {
+  fill: #4a63a8;
+}
+.art-track,
+.art-arc {
+  fill: none;
+  stroke: var(--navy-line);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+.art-arc {
+  stroke: var(--yellow);
+}
+.art-needle {
+  stroke: var(--white);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.art-cap {
+  fill: var(--white);
+}
+.art-cap-band {
+  fill: var(--silver);
+}
+.art-bar {
+  fill: var(--silver);
+  opacity: 0.6;
+}
+.art-bar-hi {
+  fill: #2bd576;
+}
+
+/* Short intro paragraph under a section title */
+.section-blurb {
+  max-width: 44rem;
+  font-size: 1.12rem;
+  color: var(--silver);
+  margin: -0.5rem 0 clamp(2rem, 4vw, 3rem);
 }
 
 /* Skills */
@@ -764,6 +1005,9 @@ a {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem 2rem;
   margin-top: 1.25rem;
+}
+.about-facts .about-fact-wide {
+  grid-column: 1 / -1;
 }
 .about-facts div {
   border-top: 1px solid var(--navy-line);
@@ -1263,7 +1507,10 @@ a {
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
 }
-.motion .feature-art:hover > * {
+.motion .feature-art-play > * {
+  transform: none;
+}
+.motion .feature-art:not(.feature-art-play):hover > * {
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.03);
   box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
   transition: transform 0.12s linear, box-shadow 0.4s;

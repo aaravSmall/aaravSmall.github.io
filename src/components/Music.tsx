@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { ReactNode } from "react";
-import { spotify, spotifySearch, topArtists, topSongs, type Artist } from "@/data/music";
+import { musicBlurb, spotify, spotifySearch, topArtists, topSongs, type Artist } from "@/data/music";
 import { artistCover, songCover } from "@/lib/artwork";
 
 const sortKey = (s: string) => s.toLowerCase();
@@ -21,6 +21,7 @@ export async function Music() {
         <h2 id="music-h" className="h2">
           Top artists &amp; songs
         </h2>
+        <p className="section-blurb">{musicBlurb}</p>
         <div className="music">
           <div className="music-col">
             <h3 className="music-label">Top artists</h3>

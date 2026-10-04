@@ -1,5 +1,9 @@
 // Leadership roles and life outside of code.
 
+// The short paragraph under the section title.
+export const leadershipBlurb =
+  "To me, leadership is mostly about making other people's work easier. Running PrepTech meant hiring well, keeping 30+ people pointed in the same direction and then getting out of their way. Mentoring means listening more than I talk. It's the same habit I bring to engineering: understand what a team actually needs before building anything, because the best tool in the world doesn't matter if nobody uses it.";
+
 export const leadership = [
   {
     title: "Co-President",

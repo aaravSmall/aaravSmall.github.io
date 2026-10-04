@@ -2,6 +2,10 @@
 // Both lists are sorted alphabetically by artist on the page, so order here doesn't matter.
 // Cover art is looked up automatically at build time (see src/lib/artwork.ts).
 
+// The short paragraph under the section title.
+export const musicBlurb =
+  "Music is the soundtrack to how I work and who I am. My taste swings from Arctic Monkeys to French synth-pop to Australian electronic, and that range says a lot about me: I'm curious, I get restless doing the same thing twice, and I like finding what's good in places I didn't expect. A new album can reset my whole mood, and asking someone what they've had on repeat is still my favorite way to get to know them.";
+
 export const spotify = {
   username: "aaravsmall",
   url: "https://open.spotify.com/user/aaravsmall",

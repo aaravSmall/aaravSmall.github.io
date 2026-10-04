@@ -42,6 +42,8 @@ const TARGETS: [string, Variant, boolean?][] = [
   [".card .h3", "words"],
   [".card > .muted", "up"],
   [".more", "up"],
+  [".card-art", "up"],
+  [".section-blurb", "up"],
 
   // Toolbox
   [".skill-row", "none"],
@@ -186,7 +188,7 @@ export function Motion() {
     window.addEventListener("resize", onScroll);
 
     // 5. Featured project art tilts toward the cursor.
-    const arts = Array.from(document.querySelectorAll<HTMLElement>(".feature-art"));
+    const arts = Array.from(document.querySelectorAll<HTMLElement>(".feature-art:not(.feature-art-play)"));
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const tilt = (e: PointerEvent) => {
       const el = e.currentTarget as HTMLElement;
