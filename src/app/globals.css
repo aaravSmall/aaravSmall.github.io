@@ -225,7 +225,7 @@ a {
   border-color: var(--white);
 }
 
-/* The one moment of motion: the livery sweeps on, then the name follows. */
+/* On load: the livery sweeps on, then the name follows. Scroll motion lives at the end of the file. */
 @media (prefers-reduced-motion: no-preference) {
   .livery-red,
   .livery-yellow {
@@ -239,6 +239,30 @@ a {
   }
   .hero-name span:last-child {
     animation-delay: 0.33s;
+  }
+  .hero-roles,
+  .hero-intro,
+  .hero-school,
+  .hero .hero-actions {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  }
+  .hero-roles {
+    animation-delay: 0.45s;
+  }
+  .hero-intro {
+    animation-delay: 0.55s;
+  }
+  .hero-school {
+    animation-delay: 0.62s;
+  }
+  .hero .hero-actions {
+    animation-delay: 0.7s;
+  }
+}
+@keyframes rise {
+  from {
+    transform: translateY(1.25rem);
+    opacity: 0;
   }
 }
 @keyframes sweep {
@@ -710,4 +734,266 @@ a {
   .feature-art {
     order: -1;
   }
+}
+
+/* ---------------------------------------------------------------
+   Motion: hover feedback, scroll reveals and scroll-linked effects.
+   Reveals only run once Motion.tsx adds `.motion` to <html>, and never
+   for people who ask for reduced motion.
+   --------------------------------------------------------------- */
+:root {
+  --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover: things you can press grow a little and respond. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .btn,
+  .nav nav a.nav-resume,
+  .spotify,
+  .contact-email,
+  .nav-mark,
+  .stack li,
+  .card,
+  .lead-item,
+  .music-list li,
+  .music-cover,
+  .skill-row,
+  .skills dt,
+  .links a,
+  .tl-body .h3 {
+    transition:
+      transform 0.3s var(--ease-spring),
+      background-color 0.2s,
+      border-color 0.2s,
+      color 0.2s,
+      box-shadow 0.3s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px) scale(1.06);
+  }
+  .btn-red:hover {
+    box-shadow: 0 10px 28px -10px rgb(228 0 43 / 0.75);
+  }
+  .btn-line:hover {
+    box-shadow: 0 10px 28px -14px rgb(243 244 247 / 0.45);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .nav nav a.nav-resume:hover {
+    transform: scale(1.08);
+  }
+  .nav-mark {
+    display: inline-block;
+  }
+  .nav-mark:hover {
+    transform: skewX(-12deg) scale(1.12);
+    color: var(--red);
+  }
+
+  /* Nav links: a red underline slides in. */
+  .nav nav a:not(.nav-resume) {
+    position: relative;
+  }
+  .nav nav a:not(.nav-resume)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.3rem;
+    height: 2px;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s var(--ease-out);
+  }
+  .nav nav a:not(.nav-resume):hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .links a {
+    display: inline-block;
+  }
+  .links a:hover {
+    transform: translateX(3px) scale(1.06);
+  }
+
+  .stack li:hover {
+    transform: translateY(-2px) scale(1.1);
+    color: var(--white);
+    border-color: var(--red);
+  }
+
+  .card:hover {
+    transform: translateY(-6px) scale(1.02);
+  }
+  .card:hover .h3 {
+    color: var(--yellow);
+  }
+  .card .h3 {
+    transition: color 0.2s;
+  }
+
+  .tl-body .h3 {
+    display: inline-block;
+    transform-origin: left;
+  }
+  .tl-row:hover .tl-body .h3 {
+    transform: scale(1.06);
+    color: var(--yellow);
+  }
+  .tl-body::before {
+    transition: transform 0.4s var(--ease-spring);
+  }
+  .tl-row:hover .tl-body::before {
+    transform: rotate(225deg) scale(1.35);
+  }
+
+  .lead-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--yellow);
+  }
+
+  .skill-row:hover {
+    transform: translateX(0.6rem);
+  }
+  .skills dt {
+    transform-origin: left;
+  }
+  .skill-row:hover dt {
+    color: var(--red);
+    transform: scale(1.08);
+  }
+
+  .music-list li:hover {
+    transform: translateX(0.5rem);
+  }
+  .music-list li:hover .music-cover {
+    transform: scale(1.15) rotate(-3deg);
+  }
+
+  .spotify:hover {
+    transform: scale(1.05);
+  }
+
+  .contact-email {
+    transform-origin: left bottom;
+  }
+  .contact-email:hover {
+    transform: skewX(-6deg) scale(1.03);
+  }
+}
+
+/* Featured project art tilts toward the cursor (angles set in Motion.tsx). */
+.motion .feature-art {
+  perspective: 900px;
+}
+.motion .feature-art > * {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s;
+}
+.motion .feature-art:hover > * {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(1.03);
+  box-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.7);
+  transition: transform 0.12s linear, box-shadow 0.4s;
+}
+
+/* Scroll progress: a thin red bar along the bottom of the nav. */
+.motion .nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--yellow));
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+}
+
+/* Hero: as you scroll away, the two halves of the name split apart
+   and the livery drifts off. --hero runs 0 to 1 over the hero's height. */
+.motion .hero-name span:first-child {
+  translate: calc(var(--hero, 0) * -14vw) 0;
+}
+.motion .hero-name span:last-child {
+  translate: calc(var(--hero, 0) * 14vw) 0;
+}
+.motion .hero-name span,
+.motion .hero-roles,
+.motion .hero-intro,
+.motion .hero-school,
+.motion .hero .hero-actions {
+  will-change: translate, opacity;
+}
+.motion .hero-roles,
+.motion .hero-intro,
+.motion .hero-school,
+.motion .hero .hero-actions {
+  translate: 0 calc(var(--hero, 0) * -3rem);
+}
+.motion .hero-inner {
+  opacity: calc(1 - var(--hero, 0) * 0.9);
+}
+.motion .livery {
+  translate: calc(var(--hero, 0) * 8%) calc(var(--hero, 0) * 18%);
+  scale: calc(1 + var(--hero, 0) * 0.15);
+}
+
+/* Scroll reveals. Elements slide in as they enter the viewport and slide
+   back out when they leave, so the page moves every time you pass through.
+   Uses `translate`/`scale` so it never fights the hover `transform`. */
+.motion [data-reveal] {
+  --d: calc(var(--i, 0) * 70ms);
+  opacity: 0;
+  transition:
+    opacity 0.5s ease,
+    translate 0.5s var(--ease-out),
+    scale 0.5s var(--ease-out),
+    clip-path 0.5s var(--ease-out),
+    transform 0.3s var(--ease-spring),
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    box-shadow 0.3s;
+}
+.motion [data-reveal].in {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  transition-duration: 0.9s, 0.9s, 0.9s, 0.9s, 0.3s, 0.2s, 0.2s, 0.2s, 0.3s;
+  transition-delay: var(--d), var(--d), var(--d), var(--d), 0s, 0s, 0s, 0s, 0s;
+}
+.motion [data-reveal="up"] {
+  translate: 0 2.5rem;
+}
+.motion [data-reveal="left"] {
+  translate: -3.5rem 0;
+}
+.motion [data-reveal="right"] {
+  translate: 3.5rem 0;
+}
+.motion [data-reveal="scale"] {
+  scale: 0.85;
+}
+
+/* Section titles wipe in from the left, then the red slash shoots out. */
+.motion [data-reveal="wipe"] {
+  translate: -1.5rem 0;
+  clip-path: inset(0 100% -0.5rem 0);
+}
+.motion [data-reveal="wipe"].in {
+  clip-path: inset(0 0 -0.5rem 0);
+}
+.motion [data-reveal="wipe"]::after {
+  transform: skewX(-24deg) scaleX(0);
+  transition: transform 0.6s var(--ease-spring);
+}
+.motion [data-reveal="wipe"].in::after {
+  transform: skewX(-24deg) scaleX(1);
+  transition-delay: 0.45s;
 }
