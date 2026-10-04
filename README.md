@@ -25,13 +25,13 @@ You can do this entirely on github.com: open `public/`, click **Add file → Upl
 
 ### Add photos to the photography page
 
-Drop image files into `public/photos/`, then list each one in `src/data/photos.ts`:
+The page is split into sections (Aviation, Nature, Urban). Drop image files into `public/photos/<section>/`, then add an entry to that section's `shots` list in `src/data/photos.ts`:
 
 ```ts
-{ src: "/photos/teton-sunrise.jpg", alt: "Sunrise over the Tetons", caption: "First light", place: "Grand Teton, WY" },
+{ src: na("teton-sunrise.jpg"), alt: "Sunrise over the Tetons", caption: "First light", place: "Grand Teton, WY" },
 ```
 
-`caption` and `place` are optional. Until at least one photo is listed, the page shows a "coming soon" note.
+`caption` and `place` are optional. For a video, add `video: av("clip.mp4")` and use `src` for a poster image; it loops silently in the grid and plays with sound in the viewer. iPhone HEIC/MOV files need converting to JPG/MP4 first. To add a new section, copy an existing one in the `sections` list.
 
 ### Add a project
 

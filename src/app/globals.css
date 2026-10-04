@@ -2236,13 +2236,18 @@ a {
   overflow: hidden;
   border-radius: 2px;
 }
-.gallery-item img {
+.gallery-item {
+  position: relative;
+}
+.gallery-item img,
+.gallery-item video {
   display: block;
   width: 100%;
   height: auto;
   transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.1, 1), filter 0.3s;
 }
-.gallery-item:hover img {
+.gallery-item:hover img,
+.gallery-item:hover video {
   transform: scale(1.03);
   filter: brightness(1.08);
 }
@@ -2263,7 +2268,8 @@ a {
   max-width: 100%;
   max-height: 100%;
 }
-.viewer-figure img {
+.viewer-figure img,
+.viewer-figure video {
   max-width: min(100%, 80rem);
   max-height: calc(100vh - 9rem);
   object-fit: contain;
@@ -2308,4 +2314,95 @@ a {
 .viewer-next {
   right: 1rem;
   top: 50%;
+}
+
+/* Photography sections */
+.photo-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+.photo-jump a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1.5px solid var(--navy-line);
+  color: var(--white);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.photo-jump a span {
+  font-family: var(--body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--silver);
+}
+.photo-jump a:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.photo-section {
+  scroll-margin-top: 5rem;
+}
+.photo-section + .photo-section {
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+}
+.photo-section-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--navy-line);
+}
+.photo-section-num {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  line-height: 0.85;
+  color: var(--red);
+}
+.photo-section-note {
+  margin-top: 0.35rem;
+  color: var(--silver);
+}
+.photo-section-count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--silver);
+  white-space: nowrap;
+}
+@media (max-width: 34rem) {
+  .photo-section-head {
+    grid-template-columns: auto 1fr;
+  }
+  .photo-section-count {
+    display: none;
+  }
+}
+.gallery-badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  padding: 0.2rem 0.5rem;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.gallery-badge::before {
+  content: "\25B6\FE0E  ";
 }

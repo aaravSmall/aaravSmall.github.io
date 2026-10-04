@@ -33,8 +33,15 @@ export function Gallery({ shots }: { shots: Shot[] }) {
       <ul className="gallery">
         {shots.map((s, i) => (
           <li key={s.src}>
-            <button type="button" className="gallery-item" onClick={() => setOpen(i)} aria-label={`Open photo: ${s.alt}`}>
-              <img src={s.src} alt={s.alt} loading={i < 6 ? "eager" : "lazy"} />
+            <button type="button" className="gallery-item" onClick={() => setOpen(i)} aria-label={`Open ${s.video ? "video" : "photo"}: ${s.alt}`}>
+              {s.video ? (
+                <>
+                  <video src={s.video} poster={s.src} muted loop autoPlay playsInline preload="metadata" aria-hidden="true" />
+                  <span className="gallery-badge">Video</span>
+                </>
+              ) : (
+                <img src={s.src} alt={s.alt} loading={i < 6 ? "eager" : "lazy"} />
+              )}
             </button>
           </li>
         ))}
@@ -43,7 +50,11 @@ export function Gallery({ shots }: { shots: Shot[] }) {
       {cur && (
         <div className="viewer" role="dialog" aria-modal="true" aria-label={cur.alt} onClick={close}>
           <figure className="viewer-figure" onClick={(e) => e.stopPropagation()}>
-            <img src={cur.src} alt={cur.alt} />
+            {cur.video ? (
+              <video key={cur.video} src={cur.video} poster={cur.src} controls autoPlay playsInline aria-label={cur.alt} />
+            ) : (
+              <img src={cur.src} alt={cur.alt} />
+            )}
             {(cur.caption || cur.place) && (
               <figcaption>
                 {cur.caption && <span>{cur.caption}</span>}
