@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import type { ReactNode } from "react";
-import { musicBlurb, spotify, spotifySearch, topArtists, topSongs, type Artist } from "@/data/music";
-import { artistCover, songCover } from "@/lib/artwork";
+import { musicBlurb, musicHint, spotify, spotifySearch, topArtists, topSongs, type Artist } from "@/data/music";
+import { artistCover, songInfo } from "@/lib/artwork";
+import { SongPreview } from "@/components/SongPreview";
 
 const sortKey = (s: string) => s.toLowerCase();
 const byText = (a: string, b: string) => sortKey(a).localeCompare(sortKey(b), "en", { numeric: true });
@@ -12,7 +13,12 @@ export async function Music() {
 
   const [artistArt, songArt] = await Promise.all([
     Promise.all(artists.map((a) => artistCover(a.name))),
-    Promise.all(songs.map((s) => (s.cover ? Promise.resolve(s.cover) : songCover(s.title, s.artist, s.album)))),
+    Promise.all(
+      songs.map(async (s) => {
+        const found = await songInfo(s.title, s.artist, s.album);
+        return { cover: s.cover ?? found.cover, preview: s.preview ?? found.preview };
+      })
+    ),
   ]);
 
   return (
@@ -22,6 +28,7 @@ export async function Music() {
           Top artists &amp; songs
         </h2>
         <p className="section-blurb">{musicBlurb}</p>
+        <p className="music-hint">{musicHint}</p>
         <div className="music">
           <div className="music-col">
             <h3 className="music-label">Top artists</h3>
@@ -43,7 +50,17 @@ export async function Music() {
             <ol className="music-list">
               {songs.map((s, i) => (
                 <li key={s.title + s.artist}>
-                  <Cover src={songArt[i]} label={s.title} />
+                  {songArt[i].preview ? (
+                    <SongPreview
+                      id={s.title + s.artist}
+                      cover={songArt[i].cover}
+                      preview={songArt[i].preview!}
+                      start={s.previewStart}
+                      label={`${s.title} by ${s.artist}`}
+                    />
+                  ) : (
+                    <Cover src={songArt[i].cover} label={s.title} />
+                  )}
                   <span className="music-text">
                     <span className="music-title">
                       <SpotifyLink href={s.spotify ?? spotifySearch(`${s.title} ${s.artist}`)} label={`${s.title} by ${s.artist}`}>

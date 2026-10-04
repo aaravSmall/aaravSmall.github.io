@@ -38,11 +38,9 @@ const TARGETS: [string, Variant, boolean?][] = [
   [".stack li", "pop", true],
   [".links", "up"],
   [".feature-art", "right"],
-  [".grid > .card", "up", true],
-  [".card .h3", "words"],
-  [".card > .muted", "up"],
+  [".proj-head", "left"],
+  [".proj-list > li", "up", true],
   [".more", "up"],
-  [".card-art", "up"],
   [".section-blurb", "up"],
 
   // Toolbox

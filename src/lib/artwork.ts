@@ -1,4 +1,4 @@
-// Looks up cover art from the public iTunes Search API at build time.
+// Looks up cover art and song previews from the public iTunes Search API at build time.
 // The site is a static export, so this runs once during `npm run build`
 // and the image URLs get baked into the HTML. If a lookup fails, the
 // page falls back to a plain numbered tile instead of an image.
@@ -8,6 +8,7 @@ type ItunesResult = {
   trackName?: string;
   collectionName?: string;
   artworkUrl100?: string;
+  previewUrl?: string;
 };
 
 const norm = (s: string) =>
@@ -60,23 +61,29 @@ function search(term: string, entity: "song" | "album"): Promise<ItunesResult[]>
 
 function pickSong(results: ItunesResult[], title: string, artist: string) {
   const byArtist = results.filter((r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName));
-  return byArtist.find((r) => r.trackName && norm(r.trackName).startsWith(norm(title))) ?? byArtist[0];
+  const named = byArtist.filter((r) => r.trackName && norm(r.trackName).startsWith(norm(title)));
+  return named.find((r) => r.previewUrl) ?? named[0] ?? byArtist[0];
 }
 
-export async function songCover(title: string, artist: string, album?: string): Promise<string | null> {
+// Cover art plus Apple's 30-second preview clip (usually the hook) for a song.
+// The preview only counts when the track title matches, so a wrong song never plays.
+export async function songInfo(
+  title: string,
+  artist: string,
+  album?: string,
+): Promise<{ cover: string | null; preview: string | null }> {
   let hit: ItunesResult | undefined = pickSong(await search(`${title} ${artist.split("/")[0]}`, "song"), title, artist);
   if (!hit) hit = pickSong(await search(title, "song"), title, artist);
+  const preview = hit?.previewUrl && hit.trackName && norm(hit.trackName).startsWith(norm(title)) ? hit.previewUrl : null;
   if (!hit && album) {
     const albums = await search(`${album} ${artist.split("/")[0]}`, "album");
     hit = albums.find(
       (r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName) && r.collectionName && norm(r.collectionName).includes(norm(album)),
     );
   }
-  if (!hit) {
-    console.warn(`[artwork] no cover found for "${title}" by ${artist}`);
-    return null;
-  }
-  return big(hit.artworkUrl100!);
+  if (!hit) console.warn(`[artwork] no cover found for "${title}" by ${artist}`);
+  if (!preview) console.warn(`[artwork] no preview found for "${title}" by ${artist}`);
+  return { cover: hit?.artworkUrl100 ? big(hit.artworkUrl100) : null, preview };
 }
 
 export async function artistCover(artist: string): Promise<string | null> {

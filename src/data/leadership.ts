@@ -27,4 +27,4 @@ export const leadership = [
 ];
 
 export const outside =
-  "Off the keyboard I'm usually on a bouldering wall, six days a week. The long-term goal is a summit of the Grand Teton.";
+  "Off the keyboard I'm usually on a bouldering wall, which is where the idea for mitbo.ai came from, and the long-term goal is a summit of the Grand Teton. When I'm not climbing, I'm following Spurs, Odisha FC, the Bills and Williams in F1, usually all on the same weekend.";

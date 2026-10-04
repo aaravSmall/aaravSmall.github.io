@@ -53,7 +53,7 @@ export default function Home() {
             </ul>
             <p className="hero-intro">{profile.intro}</p>
             <p className="hero-school">
-              {profile.school}, Class of {profile.graduation.split(" ")[1]}
+              {profile.school}, {profile.campus} · Class of {profile.graduation.split(" ")[1]}
             </p>
             <div className="hero-actions">
               <a className="btn btn-red" href={profile.resume} target="_blank" rel="noopener">
@@ -100,7 +100,9 @@ export default function Home() {
                   <span className="tl-to">expected</span>
                 </p>
                 <div className="tl-body">
-                  <h3 className="h3">{profile.school}</h3>
+                  <h3 className="h3">
+                    {profile.school}, {profile.campus}
+                  </h3>
                   <p className="tl-title">{profile.degree}</p>
                   <p className="muted">{profile.minor}</p>
                 </div>
@@ -149,30 +151,40 @@ export default function Home() {
               </article>
             ))}
 
-            <div className="grid">
+            <h3 className="proj-head">More projects</h3>
+            <ul className="proj-list">
               {rest.map((p) => (
-                <article key={p.name} className="card">
-                  {p.art && <ProjectArt art={p.art} />}
-                  <p className={`status status-${p.status.replace(" ", "-").toLowerCase()}`}>{p.status}</p>
-                  <h3 className="h3">{p.name}</h3>
-                  <p className="tagline">{p.tagline}</p>
-                  <p className="muted">{p.description}</p>
-                  {p.highlights && (
-                    <ul className="points">
-                      {p.highlights.map((h) => (
-                        <li key={h}>{h}</li>
-                      ))}
-                    </ul>
-                  )}
-                  <ul className="stack" aria-label="Built with">
-                    {p.stack.map((s) => (
-                      <li key={s}>{s}</li>
-                    ))}
-                  </ul>
-                  <ProjectLinks repo={p.repo} live={p.live} name={p.name} />
-                </article>
+                <li key={p.name}>
+                  <details className="proj">
+                    <summary>
+                      <span className="proj-name">{p.name}</span>
+                      <span className="proj-line">{p.tagline}</span>
+                      <span className={`status status-${p.status.replace(" ", "-").toLowerCase()}`}>{p.status}</span>
+                      <span className="proj-toggle" aria-hidden="true" />
+                    </summary>
+                    <div className="proj-body">
+                      {p.art && <ProjectArt art={p.art} />}
+                      <div className="proj-detail">
+                        <p className="muted">{p.description}</p>
+                        {p.highlights && (
+                          <ul className="points">
+                            {p.highlights.map((h) => (
+                              <li key={h}>{h}</li>
+                            ))}
+                          </ul>
+                        )}
+                        <ul className="stack" aria-label="Built with">
+                          {p.stack.map((s) => (
+                            <li key={s}>{s}</li>
+                          ))}
+                        </ul>
+                        <ProjectLinks repo={p.repo} live={p.live} name={p.name} />
+                      </div>
+                    </div>
+                  </details>
+                </li>
               ))}
-            </div>
+            </ul>
 
             <p className="more">
               More on{" "}

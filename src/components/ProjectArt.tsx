@@ -1,7 +1,7 @@
 // Small line illustrations for the project cards. Each one is a simple sketch
 // of what the project does, drawn in the site palette.
 
-export type ArtKey = "britney" | "overlay" | "been" | "college";
+export type ArtKey = "britney" | "overlay" | "roamly" | "college" | "fantasy";
 
 export function ProjectArt({ art }: { art: ArtKey }) {
   const Art = ARTS[art];
@@ -69,7 +69,7 @@ function Overlay() {
 }
 
 // Photos turning into pins on a map, joined by the trips between them.
-function Been() {
+function Roamly() {
   const pins: [number, number][] = [
     [56, 78],
     [132, 46],
@@ -119,9 +119,39 @@ function College() {
   );
 }
 
+// A half pitch with a formation of players and the one you're picking highlighted.
+function Fantasy() {
+  const players: [number, number][] = [
+    [60, 60],
+    [100, 30],
+    [100, 90],
+    [150, 18],
+    [150, 46],
+    [150, 74],
+    [150, 102],
+    [205, 36],
+    [205, 84],
+    [255, 60],
+  ];
+  return (
+    <>
+      <rect x="16" y="8" width="288" height="104" className="art-pitch" />
+      <line x1="160" x2="160" y1="8" y2="112" className="art-pitch-line" />
+      <circle cx="160" cy="60" r="18" className="art-pitch-line" />
+      <rect x="16" y="34" width="26" height="52" className="art-pitch-line" />
+      <rect x="278" y="34" width="26" height="52" className="art-pitch-line" />
+      {players.map(([x, y], i) => (
+        <circle key={i} cx={x} cy={y} r={i === 9 ? 7 : 5} className={i === 9 ? "art-player-hi" : "art-player"} />
+      ))}
+      <circle cx="255" cy="60" r="13" className="art-pick" />
+    </>
+  );
+}
+
 const ARTS: Record<ArtKey, () => React.JSX.Element> = {
   britney: Britney,
   overlay: Overlay,
-  been: Been,
+  roamly: Roamly,
   college: College,
+  fantasy: Fantasy,
 };

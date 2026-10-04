@@ -4,7 +4,10 @@
 
 // The short paragraph under the section title.
 export const musicBlurb =
-  "Music is the soundtrack to how I work and who I am. My taste swings from Arctic Monkeys to French synth-pop to Australian electronic, and that range says a lot about me: I'm curious, I get restless doing the same thing twice, and I like finding what's good in places I didn't expect. A new album can reset my whole mood, and asking someone what they've had on repeat is still my favorite way to get to know them.";
+  "I listen to a bit of everything and I'm always pushing to widen what I know and what I like. I take real pride in finding lowkey, underground artists before they blow up, and nothing beats recommending something to a friend and watching it become their new favorite. That's what this list is: my top 10 artists and top 15 songs right now. Music keeps me focused when I'm building, lifts my mood when I need it, and is a big part of how I look after my mental health.";
+
+// The hint shown above the lists.
+export const musicHint = "Click a cover for a 15-second preview, or a name to open it on Spotify.";
 
 export const spotify = {
   username: "aaravsmall",
@@ -34,8 +37,19 @@ export const topArtists: Artist[] = [
 ];
 
 // Optional per song: `album` helps find the cover when the song search misses,
-// `cover` (an image URL) skips the lookup entirely, and `spotify` is the track link.
-export type Song = { title: string; artist: string; album?: string; cover?: string; spotify?: string };
+// `cover` (an image URL) overrides the looked-up art, and `spotify` is the track link.
+// Previews: clicking a cover plays 15 seconds of Apple's 30-second preview clip,
+// which is usually the hook. `previewStart` (0 to 15) skips into that clip if the
+// best part comes later; `preview` (an audio URL) replaces the clip entirely.
+export type Song = {
+  title: string;
+  artist: string;
+  album?: string;
+  cover?: string;
+  spotify?: string;
+  preview?: string;
+  previewStart?: number;
+};
 
 export const topSongs: Song[] = [
   { title: "Brazil", artist: "Declan McKenna", spotify: track("5dNyqTmZPSN7qKeQzTTVUm") },

@@ -60,14 +60,14 @@ export const projects: Project[] = [
     art: "overlay",
   },
   {
-    name: "Been",
+    name: "Roamly",
     tagline: "Your travel history, rebuilt from photos you already took.",
     description:
       "A Flutter app that scans your photo library for geotagged shots, reverse-geocodes them and groups them into trips: every country and city you've visited, with dates, a world map and the photos from each stay. It all runs on-device, so no photo ever leaves your phone.",
     stack: ["Flutter", "Dart", "photo_manager", "Geocoding", "Material 3"],
     status: "In progress",
     repo: "https://github.com/aaravSmall/roamly",
-    art: "been",
+    art: "roamly",
     highlights: [
       "Splits trips by place and time gaps, so two visits to one city stay separate",
       "Detects your home city and filters out everyday photos taken near it",
@@ -82,5 +82,19 @@ export const projects: Project[] = [
     status: "Shipped",
     art: "college",
     highlights: ["Prediction model with 94% accuracy", "MySQL-backed architecture wired straight into the app"],
+  },
+  {
+    name: "Euro 24 Fantasy",
+    tagline: "A fantasy football app built for the Euro 2024 tournament.",
+    description:
+      "Sign in with Google, pick a squad in the formation you want, and earn points from your players' goals, assists and clean sheets. Players can be searched and sorted by goals, assists, clean sheets, cards and price, alongside a group-stage tracker and leagues to play with friends.",
+    stack: ["Flutter", "Dart", "Firebase Auth", "Firebase Realtime Database", "Google Sign-In"],
+    status: "Shipped",
+    repo: "https://github.com/aaravSmall/Euro24FantasyApp",
+    art: "fantasy",
+    highlights: [
+      "Squads saved per user in Firebase, so a team follows you across devices",
+      "Player leaderboard ranked by fantasy points",
+    ],
   },
 ];
