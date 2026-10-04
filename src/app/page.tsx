@@ -5,6 +5,7 @@ import { leadership, outside } from "@/data/leadership";
 import { Music } from "@/components/Music";
 import { Livery } from "@/components/Livery";
 import { PoseSketch } from "@/components/PoseSketch";
+import { Motion } from "@/components/Motion";
 
 export default function Home() {
   const featured = projects.filter((p) => p.featured);
@@ -12,6 +13,7 @@ export default function Home() {
 
   return (
     <>
+      <Motion />
       <a className="skip" href="#main">
         Skip to content
       </a>
