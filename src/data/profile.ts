@@ -40,7 +40,7 @@ export const about = {
     { label: "Studying", value: "B.S. CIT, Purdue Honors, Class of 2027" },
     { label: "Focus", value: "AI engineering, forward deployed, full-stack" },
     { label: "Building", value: "mitbo.ai, an AI bouldering coach" },
-    { label: "On campus", value: "F1 @ Purdue socials, honors mentor" },
+    { label: "On campus", value: "F1 @ Purdue socials, Honors Mentor" },
   ] as { label: string; value: string; wide?: boolean }[],
 };
 
