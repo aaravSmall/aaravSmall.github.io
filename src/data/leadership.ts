@@ -27,12 +27,12 @@ export const leadership = [
 ];
 
 export const outside =
-  "Off the keyboard I'm usually on a bouldering wall, which is where the idea for mitbo.ai came from, and the long-term goal is a summit of the Grand Teton. When I'm not climbing, I'm following Spurs, Odisha FC, the Bills and Williams in F1, usually in a jersey from my collection.";
+  "Off the keyboard I'm usually on a bouldering wall, which is where the idea for mitbo.ai came from, and the long-term goal is a summit of the Grand Teton. When I'm not climbing, I'm following Tottenham Hotspur, Odisha FC, the Bills and Williams in F1, usually in a jersey from my collection.";
 
 // Favorite kits in the jersey collection, shown under the paragraph above.
 export const jerseys = [
   { kit: "2006 Argentina away", name: "Messi 19" },
   { kit: "2004/05 Bayern Munich away", name: "Ballack 13" },
   { kit: "2024 Roma home", name: "Dybala 21" },
-  { kit: "1994 Spurs home" },
+  { kit: "1994 Tottenham Hotspur home" },
 ];
