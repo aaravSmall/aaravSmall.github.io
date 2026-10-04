@@ -2176,3 +2176,134 @@ a {
   text-transform: uppercase;
   color: var(--yellow);
 }
+
+/* About: link to the photography page */
+.about-photos {
+  padding-left: calc(1.25rem + 3px);
+  color: var(--silver);
+}
+.about-photos a {
+  color: var(--white);
+  font-weight: 600;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.about-photos a:hover {
+  color: var(--yellow);
+}
+
+/* ---------- Photography page ---------- */
+.photo-page {
+  min-height: 70vh;
+}
+.back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  color: var(--silver);
+  font-weight: 600;
+  text-decoration: none;
+}
+.back:hover {
+  color: var(--yellow);
+}
+.photo-empty {
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--navy-line);
+  color: var(--silver);
+  text-align: center;
+}
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 3 18rem;
+  column-gap: 1rem;
+}
+.gallery li {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+.gallery-item {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--navy-raised);
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.1, 1), filter 0.3s;
+}
+.gallery-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1.08);
+}
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 3.5rem 1rem;
+  background: rgb(8 14 34 / 0.94);
+}
+.viewer-figure {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+  justify-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+.viewer-figure img {
+  max-width: min(100%, 80rem);
+  max-height: calc(100vh - 9rem);
+  object-fit: contain;
+}
+.viewer-figure figcaption {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.viewer-place {
+  color: var(--silver);
+}
+.viewer-btn {
+  position: absolute;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--navy-line);
+  border-radius: 50%;
+  background: rgb(14 26 61 / 0.8);
+  color: var(--white);
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.viewer-btn:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.viewer-close {
+  top: 1rem;
+  right: 1rem;
+  font-size: 1rem;
+}
+.viewer-prev {
+  left: 1rem;
+  top: 50%;
+}
+.viewer-next {
+  right: 1rem;
+  top: 50%;
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { about, profile } from "@/data/profile";
@@ -45,6 +46,10 @@ export function About() {
               ))}
             </ul>
           </div>
+          <p className="about-photos">
+            I also love photography. A few of my favorite shots are on{" "}
+            <Link href="/photography">my photography page</Link>.
+          </p>
           <dl className="about-facts">
             {about.facts.map((f) => (
               <div key={f.label} className={f.wide ? "about-fact-wide" : undefined}>

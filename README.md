@@ -23,6 +23,16 @@ Replace `public/resume.pdf` with your new PDF, **keeping the filename `resume.pd
 
 You can do this entirely on github.com: open `public/`, click **Add file → Upload files**, drop in the new `resume.pdf`, and commit.
 
+### Add photos to the photography page
+
+Drop image files into `public/photos/`, then list each one in `src/data/photos.ts`:
+
+```ts
+{ src: "/photos/teton-sunrise.jpg", alt: "Sunrise over the Tetons", caption: "First light", place: "Grand Teton, WY" },
+```
+
+`caption` and `place` are optional. Until at least one photo is listed, the page shows a "coming soon" note.
+
 ### Add a project
 
 Copy an existing entry in `src/data/projects.ts` and fill it in. Optional fields:

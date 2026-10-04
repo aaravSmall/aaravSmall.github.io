@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { profile, skills } from "@/data/profile";
 import { About } from "@/components/About";
 import { experience } from "@/data/experience";
@@ -30,6 +31,7 @@ export default function Home() {
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
             <a href="#leadership">Leadership</a>
+            <Link href="/photography">Photography</Link>
             <a href="#contact">Contact</a>
             <a href={profile.resume} className="nav-resume" target="_blank" rel="noopener">
               Resume
