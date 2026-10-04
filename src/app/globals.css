@@ -1080,6 +1080,8 @@ a {
   background: linear-gradient(transparent, rgb(14 26 61 / 0.9));
 }
 .carousel-count {
+  white-space: nowrap;
+  flex: none;
   font-family: var(--display);
   font-weight: 800;
   font-size: 1.05rem;

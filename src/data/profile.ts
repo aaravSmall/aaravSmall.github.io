@@ -28,9 +28,13 @@ export type Photo = { src: string; alt: string; caption?: string };
 
 export const about = {
   photos: [
-    { src: "/about/1.jpg", alt: "Aarav Samal", caption: "" },
-    { src: "/about/2.jpg", alt: "Aarav Samal", caption: "" },
-    { src: "/about/3.jpg", alt: "Aarav Samal", caption: "" },
+    { src: "/about/1.jpg", alt: "Aarav in a Purdue hoodie at sunset", caption: "" },
+    { src: "/about/2.jpg", alt: "Aarav taking a mirror selfie", caption: "" },
+    { src: "/about/3.jpg", alt: "Aarav crouching in front of a race car in the pit garage", caption: "" },
+    { src: "/about/4.jpg", alt: "Aarav sitting on rocks beside a mountain stream", caption: "" },
+    { src: "/about/5.jpg", alt: "Aarav in a Purdue hoodie in front of snow-capped mountains", caption: "" },
+    { src: "/about/6.jpg", alt: "Aarav in a Roma home jersey on a volcanic crater floor", caption: "" },
+    { src: "/about/7.jpg", alt: "Aarav smiling in front of the Taj Mahal", caption: "" },
   ] as Photo[],
   paragraphs: [
     "I'm a Computer and Information Technology student in Purdue's John Martinson Honors College, with a minor in Communications. The pairing fits how I like to work: understand the people and the problem first, then build the thing that actually helps.",
