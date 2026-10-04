@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { about, profile } from "@/data/profile";
-import { outside } from "@/data/leadership";
+import { jerseys, outside } from "@/data/leadership";
 import { PhotoCarousel } from "@/components/PhotoCarousel";
 
 // Runs at build time: only photos whose files exist in public/ make it into the carousel.
@@ -34,6 +34,17 @@ export function About() {
             </p>
           ))}
           <p className="outside">{outside}</p>
+          <div className="kits">
+            <p className="kits-label">Favorite kits in the collection</p>
+            <ul className="kits-list">
+              {jerseys.map((j) => (
+                <li key={j.kit}>
+                  <span className="kit-name">{j.kit}</span>
+                  {j.name && <span className="kit-print">{j.name}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
           <dl className="about-facts">
             {about.facts.map((f) => (
               <div key={f.label} className={f.wide ? "about-fact-wide" : undefined}>

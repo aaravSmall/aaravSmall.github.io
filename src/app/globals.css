@@ -2137,3 +2137,42 @@ a {
   stroke-width: 1.5;
   stroke-dasharray: 3 3;
 }
+
+/* Jersey collection under the About paragraph */
+.kits {
+  display: grid;
+  gap: 0.6rem;
+  padding-left: calc(1.25rem + 3px);
+}
+.kits-label {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--silver);
+}
+.kits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.kits-list li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--navy-line);
+  border-radius: 2px;
+  font-size: 0.9rem;
+}
+.kit-print {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
