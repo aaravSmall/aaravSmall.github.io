@@ -119,31 +119,40 @@ function College() {
   );
 }
 
-// A half pitch with a formation of players and the one you're picking highlighted.
+// A pitch with a 3-4-3 lineup attacking left to right, the striker you're
+// picking highlighted.
 function Fantasy() {
-  const players: [number, number][] = [
-    [60, 60],
-    [100, 30],
-    [100, 90],
+  const gk: [number, number] = [30, 60];
+  const outfield: [number, number][] = [
+    // back three
+    [78, 32],
+    [72, 60],
+    [78, 88],
+    // midfield four: wing-backs pushed up, two central mids
     [150, 18],
-    [150, 46],
-    [150, 74],
+    [132, 46],
+    [132, 74],
     [150, 102],
-    [205, 36],
-    [205, 84],
-    [255, 60],
+    // front three
+    [218, 28],
+    [218, 92],
   ];
+  const striker: [number, number] = [238, 60];
   return (
     <>
       <rect x="16" y="8" width="288" height="104" className="art-pitch" />
       <line x1="160" x2="160" y1="8" y2="112" className="art-pitch-line" />
       <circle cx="160" cy="60" r="18" className="art-pitch-line" />
-      <rect x="16" y="34" width="26" height="52" className="art-pitch-line" />
-      <rect x="278" y="34" width="26" height="52" className="art-pitch-line" />
-      {players.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i === 9 ? 7 : 5} className={i === 9 ? "art-player-hi" : "art-player"} />
+      <rect x="16" y="30" width="34" height="60" className="art-pitch-line" />
+      <rect x="16" y="46" width="12" height="28" className="art-pitch-line" />
+      <rect x="270" y="30" width="34" height="60" className="art-pitch-line" />
+      <rect x="292" y="46" width="12" height="28" className="art-pitch-line" />
+      <circle cx={gk[0]} cy={gk[1]} r="5" className="art-keeper" />
+      {outfield.map(([x, y]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r="5" className="art-player" />
       ))}
-      <circle cx="255" cy="60" r="13" className="art-pick" />
+      <circle cx={striker[0]} cy={striker[1]} r="7" className="art-player-hi" />
+      <circle cx={striker[0]} cy={striker[1]} r="13" className="art-pick" />
     </>
   );
 }

@@ -3,6 +3,7 @@ import "@fontsource/big-shoulders-display/600";
 import "@fontsource/big-shoulders-display/800";
 import "@fontsource/big-shoulders-display/900";
 import "@fontsource-variable/archivo";
+import "@fontsource/caveat/700";
 import "./globals.css";
 import { profile } from "@/data/profile";
 

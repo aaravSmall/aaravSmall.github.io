@@ -417,6 +417,33 @@ a {
   height: auto;
   border-radius: 2px;
 }
+/* Handwritten "try it" note above the mitbo.ai demo */
+.try-me {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  margin: 0 1.5rem -0.6rem 0;
+  color: var(--yellow);
+  pointer-events: none;
+}
+.try-me span {
+  font-family: "Caveat", "Comic Sans MS", cursive;
+  font-weight: 700;
+  font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+  line-height: 1;
+  transform: rotate(-4deg) translateY(0.15rem);
+  white-space: nowrap;
+}
+.feature-art .try-me-arrow {
+  width: 3.4rem;
+  flex: none;
+  fill: none;
+  stroke: var(--yellow);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .tagline {
   font-size: 1.2rem;
   font-weight: 600;
@@ -2127,6 +2154,9 @@ a {
 }
 .art-player {
   fill: var(--white);
+}
+.art-keeper {
+  fill: var(--yellow);
 }
 .art-player-hi {
   fill: var(--red);

@@ -142,6 +142,13 @@ export default function Home() {
                 </div>
                 {p.name === "mitbo.ai" ? (
                   <div className="feature-art feature-art-play">
+                    <p className="try-me" aria-hidden="true">
+                      <span>go on, try the climb yourself!</span>
+                      <svg viewBox="0 0 70 56" className="try-me-arrow">
+                        <path d="M6 6 C 30 4, 52 14, 56 44" />
+                        <path d="M45 36 L 56 46 L 63 33" />
+                      </svg>
+                    </p>
                     <ClimbDemo />
                   </div>
                 ) : (
