@@ -9,6 +9,7 @@ type ItunesResult = {
   collectionName?: string;
   artworkUrl100?: string;
   previewUrl?: string;
+  collectionId?: number;
 };
 
 const norm = (s: string) =>
@@ -36,8 +37,15 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 let queue: Promise<unknown> = Promise.resolve();
 
 function search(term: string, entity: "song" | "album"): Promise<ItunesResult[]> {
+  return get(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=${entity}&limit=25&country=US`);
+}
+
+// Every track on an album, for songs the plain search can't find.
+const albumTracks = (collectionId: number) =>
+  get(`https://itunes.apple.com/lookup?id=${collectionId}&entity=song&country=US`);
+
+function get(url: string): Promise<ItunesResult[]> {
   const run = async (): Promise<ItunesResult[]> => {
-    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=${entity}&limit=25&country=US`;
     for (let attempt = 0; attempt < 4; attempt++) {
       try {
         const res = await fetch(url, { cache: "force-cache" });
@@ -74,16 +82,23 @@ export async function songInfo(
 ): Promise<{ cover: string | null; preview: string | null }> {
   let hit: ItunesResult | undefined = pickSong(await search(`${title} ${artist.split("/")[0]}`, "song"), title, artist);
   if (!hit) hit = pickSong(await search(title, "song"), title, artist);
-  const preview = hit?.previewUrl && hit.trackName && norm(hit.trackName).startsWith(norm(title)) ? hit.previewUrl : null;
+  const preview: string | null = hit?.previewUrl && hit.trackName && norm(hit.trackName).startsWith(norm(title)) ? hit.previewUrl : null;
   if (!hit && album) {
     const albums = await search(`${album} ${artist.split("/")[0]}`, "album");
     hit = albums.find(
       (r) => r.artistName && r.artworkUrl100 && sameArtist(artist, r.artistName) && r.collectionName && norm(r.collectionName).includes(norm(album)),
     );
   }
+  let found = preview;
+  if (!found && hit?.collectionId) {
+    const track = (await albumTracks(hit.collectionId)).find(
+      (r) => r.previewUrl && r.trackName && norm(r.trackName).startsWith(norm(title)),
+    );
+    found = track?.previewUrl ?? null;
+  }
   if (!hit) console.warn(`[artwork] no cover found for "${title}" by ${artist}`);
-  if (!preview) console.warn(`[artwork] no preview found for "${title}" by ${artist}`);
-  return { cover: hit?.artworkUrl100 ? big(hit.artworkUrl100) : null, preview };
+  if (!found) console.warn(`[artwork] no preview found for "${title}" by ${artist}`);
+  return { cover: hit?.artworkUrl100 ? big(hit.artworkUrl100) : null, preview: found };
 }
 
 export async function artistCover(artist: string): Promise<string | null> {
