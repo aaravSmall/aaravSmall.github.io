@@ -51,13 +51,17 @@ export const projects: Project[] = [
     ],
   },
   {
-    name: "AI overlay",
+    name: "Deki.ai",
     tagline: "A desktop assistant that sees your screen and hears the room.",
     description:
-      "An always-on-top Electron overlay with hotkeys, screen capture and vision, backed by a from-scratch Express/TypeScript server. Transcription and inference can run fully local.",
-    stack: ["Electron", "TypeScript", "Express", "Claude API", "whisper.cpp", "Ollama"],
+      "An always-on-top Electron overlay that captures your screen and system audio, transcribes speech with whisper.cpp and streams back an answer from local Ollama models. A from-scratch Express/TypeScript server ties it together, and everything runs on your machine: no cloud APIs, no API keys.",
+    stack: ["Electron", "TypeScript", "Express", "whisper.cpp", "Ollama"],
     status: "Shipped",
     art: "overlay",
+    highlights: [
+      "Two-stage pipeline: a small vision model captions the screen, a text model reasons over the caption and transcript",
+      "Global hotkeys to toggle the overlay or force an instant screen read",
+    ],
   },
   {
     name: "Roamly",
