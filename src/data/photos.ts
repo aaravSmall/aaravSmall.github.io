@@ -29,6 +29,8 @@ export type PhotoSection = {
 const av = (f: string) => `/photos/aviation/${f}`;
 const na = (f: string) => `/photos/nature/${f}`;
 const ur = (f: string) => `/photos/urban/${f}`;
+const co = (f: string) => `/photos/concerts/${f}`;
+const MSG = "Madison Square Garden, NY";
 
 export const photography = {
   intro:
@@ -111,6 +113,26 @@ export const photography = {
         { src: ur("1145.jpg"), alt: "A downtown street of brick and stone buildings", place: "Boston, MA" },
         { src: ur("4471.jpg"), alt: "A McDonald's sign against a moody sky", place: "Indiana" },
         { src: ur("4368.jpg"), alt: "A marble elevator lobby", place: "New York, NY" },
+      ],
+    },
+    {
+      id: "concerts",
+      title: "Concert Photography",
+      note: "Harry Styles, Together, Together Tour at Madison Square Garden, October 10, 2026.",
+      shots: [
+        { src: co("msg-1.jpg"), alt: "Harry Styles on stage with arms outstretched and eyes closed, band behind him", caption: "Harry Styles, Together, Together Tour", place: MSG },
+        { src: co("msg-3.jpg"), alt: "Silhouette of a performer reaching up into a single spotlight above the crowd", place: MSG },
+        { src: co("2503.jpg"), alt: "Harry Styles performing on the B-stage in front of a packed arena", place: MSG },
+        { src: co("msg-2.jpg"), alt: "Silhouette of a performer singing into a mic under a hazy spotlight", place: MSG },
+        { src: co("2418.jpg"), alt: "The arena's circular screen glowing with colorful show graphics", place: MSG },
+        { src: co("msg-6.jpg"), alt: "Harry Styles raising both arms in a spotlight on the runway", place: MSG },
+        { src: co("2508.jpg"), alt: "A lone performer on a dark stage lit by a narrow spotlight", place: MSG },
+        { src: co("msg-5.jpg"), alt: "Harry Styles blowing a kiss to the crowd under a spotlight", place: MSG },
+        { src: co("2570.jpg"), alt: "Two performers backlit by a bright stage light", place: MSG },
+        { src: co("msg-4.jpg"), alt: "Harry Styles clapping toward the crowd on the runway", place: MSG },
+        { src: co("2513.jpg"), alt: "Harry Styles singing on the B-stage under a warm haze of light", place: MSG },
+        { src: co("2478.jpg"), alt: "A performer seen from behind facing the crowd under a bright spotlight", place: MSG },
+        { src: co("2464.jpg"), alt: "Motion-blurred shot of Harry Styles dancing in a beam of light", place: MSG },
       ],
     },
   ] as PhotoSection[],
