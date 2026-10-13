@@ -25,8 +25,8 @@ export const projects: Project[] = [
     name: "mitbo.ai",
     tagline: "A bouldering coach that watches you climb.",
     description:
-      "Point a laptop camera at the wall. mitbo tracks your hands, feet and hips, recognizes the problem from the first holds you touch, works out a beta around the crux and your height, then talks you through each move out loud.",
-    stack: ["Computer vision", "Pose estimation", "Text-to-speech", "LLM planning"],
+      "Prop your phone up facing the wall. mitbo tracks your hands, feet and hips, picks out the problem from the start holds you settle on, plans a beta around your height and wingspan, calls out the crux, then talks you through each move out loud.",
+    stack: ["Flutter", "ML Kit pose detection", "Computer vision", "Geometry-based planning", "Text-to-speech"],
     status: "In progress",
     repo: "https://github.com/aaravSmall/mitbo.ai",
     featured: true,
@@ -46,8 +46,8 @@ export const projects: Project[] = [
     repo: "https://github.com/aaravSmall/britney-ai",
     art: "britney",
     highlights: [
-      "Beat the market by 7% on average in its first month live",
-      "183-test pytest suite, including property-based tests",
+      "Fault-tolerant systemd scheduling with offline fallbacks for every external API",
+      "190-test pytest suite in CI, including property-based tests",
     ],
   },
   {
@@ -57,6 +57,7 @@ export const projects: Project[] = [
       "An always-on-top Electron overlay that captures your screen and system audio, transcribes speech with whisper.cpp and streams back an answer from local Ollama models. A from-scratch Express/TypeScript server ties it together, and everything runs on your machine: no cloud APIs, no API keys.",
     stack: ["Electron", "TypeScript", "Express", "whisper.cpp", "Ollama"],
     status: "Shipped",
+    repo: "https://github.com/aaravSmall/Deki.ai",
     art: "overlay",
     highlights: [
       "Two-stage pipeline: a small vision model captions the screen, a text model reasons over the caption and transcript",
@@ -85,13 +86,13 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "Python", "Jupyter", "MySQL"],
     status: "Shipped",
     art: "college",
-    highlights: ["Prediction model with 94% accuracy", "MySQL-backed architecture wired straight into the app"],
+    highlights: ["Admission-odds model trained in Python and served to the app", "MySQL-backed architecture wired straight into the app"],
   },
   {
     name: "Euro 24 Fantasy",
     tagline: "A fantasy football app built for the Euro 2024 tournament.",
     description:
-      "Sign in with Google, pick a squad in the formation you want, and earn points from your players' goals, assists and clean sheets. Players can be searched and sorted by goals, assists, clean sheets, cards and price, alongside a group-stage tracker and leagues to play with friends.",
+      "Sign in with Google, pick a squad in the formation you want, and earn points from your players' goals, assists and clean sheets. Players can be searched and sorted by goals, assists, clean sheets, cards and price, alongside a group-stage tracker and fixtures.",
     stack: ["Flutter", "Dart", "Firebase Auth", "Firebase Realtime Database", "Google Sign-In"],
     status: "Shipped",
     repo: "https://github.com/aaravSmall/Euro24FantasyApp",
