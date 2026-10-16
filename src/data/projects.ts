@@ -18,18 +18,34 @@ export type Project = {
   art?: ArtKey;
   featured?: boolean;
   highlights?: string[];
+  // A playable demo shown in place of the illustration when the card opens.
+  demo?: "climb";
 };
 
 export const projects: Project[] = [
+  {
+    name: "Calorie Tracker",
+    tagline: "A free, open-source calorie tracker with nothing behind a paywall.",
+    description:
+      "An iPhone app in the spirit of Lose It, with every feature unlocked. Log food by searching a database built from USDA and Open Food Facts data, creating your own meals, or snapping a nutrition label that fills itself in. Workouts flow in from Apple Health, and the app nudges toward healthy habits instead of punishing a bad day.",
+    stack: ["React Native", "Expo", "TypeScript", "Supabase", "Postgres", "HealthKit", "Vision LLM"],
+    status: "In progress",
+    featured: true,
+    highlights: [
+      "Label scanning measured, not assumed: a hand-labeled photo set scores every field and runs in CI",
+      "Re-runnable import pipeline that merges USDA and Open Food Facts, normalizes units and rejects bad rows",
+      "Gentle guardrails: caring warnings on aggressive goals, and streaks that count logging, not undereating",
+    ],
+  },
   {
     name: "mitbo.ai",
     tagline: "A bouldering coach that watches you climb.",
     description:
       "Prop your phone up facing the wall. mitbo tracks your hands, feet and hips, picks out the problem from the start holds you settle on, plans a beta around your height and wingspan, calls out the crux, then talks you through each move out loud.",
     stack: ["Flutter", "ML Kit pose detection", "Computer vision", "Geometry-based planning", "Text-to-speech"],
-    status: "In progress",
+    status: "Live",
     repo: "https://github.com/aaravSmall/mitbo.ai",
-    featured: true,
+    demo: "climb",
     highlights: [
       "Real-time body tracking for hands, feet and hips",
       "Beta generation that adapts to climber height",
@@ -56,7 +72,7 @@ export const projects: Project[] = [
     description:
       "An always-on-top Electron overlay that captures your screen and system audio, transcribes speech with whisper.cpp and streams back an answer from local Ollama models. A from-scratch Express/TypeScript server ties it together, and everything runs on your machine: no cloud APIs, no API keys.",
     stack: ["Electron", "TypeScript", "Express", "whisper.cpp", "Ollama"],
-    status: "Shipped",
+    status: "Live",
     repo: "https://github.com/aaravSmall/Deki.ai",
     art: "overlay",
     highlights: [
@@ -70,7 +86,7 @@ export const projects: Project[] = [
     description:
       "A Flutter app that scans your photo library for geotagged shots, reverse-geocodes them and groups them into trips: every country and city you've visited, with dates, a world map and the photos from each stay. It all runs on-device, so no photo ever leaves your phone.",
     stack: ["Flutter", "Dart", "photo_manager", "Geocoding", "Material 3"],
-    status: "In progress",
+    status: "Live",
     repo: "https://github.com/aaravSmall/roamly",
     art: "roamly",
     highlights: [
@@ -84,7 +100,7 @@ export const projects: Project[] = [
     description:
       "A mobile app that runs a predictive model on an applicant's profile to estimate their chance of acceptance, so students get a data-driven read on where they stand. Built end to end, from the data pipeline to the Flutter UI.",
     stack: ["Flutter", "Dart", "Python", "Jupyter", "MySQL"],
-    status: "Shipped",
+    status: "Live",
     art: "college",
     highlights: ["Admission-odds model trained in Python and served to the app", "MySQL-backed architecture wired straight into the app"],
   },
@@ -94,7 +110,7 @@ export const projects: Project[] = [
     description:
       "Sign in with Google, pick a squad in the formation you want, and earn points from your players' goals, assists and clean sheets. Players can be searched and sorted by goals, assists, clean sheets, cards and price, alongside a group-stage tracker and fixtures.",
     stack: ["Flutter", "Dart", "Firebase Auth", "Firebase Realtime Database", "Google Sign-In"],
-    status: "Shipped",
+    status: "Live",
     repo: "https://github.com/aaravSmall/Euro24FantasyApp",
     art: "fantasy",
     highlights: [

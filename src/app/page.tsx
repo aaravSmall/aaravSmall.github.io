@@ -8,6 +8,7 @@ import { Music } from "@/components/Music";
 import { Livery } from "@/components/Livery";
 import { ClimbDemo } from "@/components/ClimbDemo";
 import { ProjectArt } from "@/components/ProjectArt";
+import { CalorieArt } from "@/components/CalorieArt";
 import { Motion } from "@/components/Motion";
 
 export default function Home() {
@@ -154,7 +155,7 @@ export default function Home() {
                 ) : (
                   <div className="feature-art">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    {p.image && <img src={p.image} alt={`${p.name} screenshot`} />}
+                    {p.image ? <img src={p.image} alt={`${p.name} screenshot`} /> : p.name === "Calorie Tracker" && <CalorieArt />}
                   </div>
                 )}
               </article>
@@ -172,7 +173,16 @@ export default function Home() {
                       <span className="proj-toggle" aria-hidden="true" />
                     </summary>
                     <div className="proj-body">
-                      {p.art && <ProjectArt art={p.art} />}
+                      {p.demo === "climb" ? (
+                        <div className="proj-demo">
+                          <p className="try-me try-me-small" aria-hidden="true">
+                            <span>try the climb yourself!</span>
+                          </p>
+                          <ClimbDemo />
+                        </div>
+                      ) : (
+                        p.art && <ProjectArt art={p.art} />
+                      )}
                       <div className="proj-detail">
                         <p className="muted">{p.description}</p>
                         {p.highlights && (
